@@ -70,7 +70,6 @@ class PrecedingTextEnd(Base):
 class Preceding128CharsBegin(Base):
   def on_query_context(self, *args):
     callback = lambda view, sel: \
-      print(view.substr(sublime.Region(max(0, sel.begin() - 128), sel.begin()))) or \
       view.substr(sublime.Region(max(0, sel.begin() - 128), sel.begin()))
 
     return self._check_sel('preceding_128_chars_begin', callback, *args)
