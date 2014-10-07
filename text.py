@@ -63,24 +63,32 @@ class PrecedingTextBegin(Base):
 class PrecedingTextEnd(Base):
   def on_query_context(self, *args):
     callback = lambda view, sel: \
-      print(view.substr(sublime.Region(view.line(sel.b).a, sel.end()))) or \
       view.substr(sublime.Region(view.line(sel.b).a, sel.end()))
 
     return self._check_sel('preceding_text_end', callback, *args)
 
+class Preceding128CharsBegin(Base):
+  def on_query_context(self, *args):
+    callback = lambda view, sel: \
+      print(view.substr(sublime.Region(max(0, sel.begin() - 128), sel.begin()))) or \
+      view.substr(sublime.Region(max(0, sel.begin() - 128), sel.begin()))
+
+    return self._check_sel('preceding_128_chars_begin', callback, *args)
+
 # unused; probably will be handy in future;
 
-# class Preceding128BytesA(Base):
+
+# class Preceding128CharsA(Base):
 #   def on_query_context(self, *args):
 #     callback = lambda view, sel: \
 #       view.substr(sublime.Region(max(0, sel.a - 128), sel.a))
 
-#     return self._check_sel('preceding_128_bytes_a', callback, *args)
+#     return self._check_sel('preceding_128_chars_a', callback, *args)
 
-# class Preceding128BytesB(Base):
+# class Preceding128CharsB(Base):
 #   def on_query_context(self, *args):
 #     callback = lambda view, sel: \
 #       view.substr(sublime.Region(max(0, sel.b - 128), sel.b))
 
-#     return self._check_sel('preceding_128_bytes_b', callback, *args)
+#     return self._check_sel('preceding_128_chars_b', callback, *args)
 #
