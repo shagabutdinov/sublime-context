@@ -3,6 +3,7 @@ import sublime_plugin
 
 from Context.base import Base
 
+
 class LineB(Base):
   def on_query_context(self, *args):
     callback = lambda view, sel: view.substr(view.line(sel.b))

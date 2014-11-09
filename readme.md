@@ -18,6 +18,11 @@ separately" section of [sublime-enhanced](http://github.com/shagabutdinov/sublim
 package.
 
 
+### Dependecies
+
+None
+
+
 ### Api
 
   **context.check(view, context)**

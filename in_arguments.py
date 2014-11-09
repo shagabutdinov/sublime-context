@@ -2,8 +2,15 @@ import sublime
 import sublime_plugin
 
 from Context.base import Base
-from Expression import expression
-from Statement import statement
+
+try:
+  from Expression import expression
+  from Statement import statement
+except ImportError:
+  sublime.error_message("Dependency import failed; please read readme for " +
+   "SnippetManager plugin for installation instructions; to disable this " +
+   "message remove this plugin")
+
 
 class InArguments(Base):
   def on_query_context(self, *args):
