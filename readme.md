@@ -96,11 +96,11 @@ None
 - **selection_b_lesser_or_equal_a** - is sel.b <= sel.a
 - **selection_b_lesser_a** - is sel.b < sel.a
 - **line_b** - line that contains sel.b: view.substr(view.line(sel.b))
-- **following_text_a** - text after sel.a
-- **following_text_b** - text after sel.b
-- **following_text_begin** - text after min(sel.a, sel.b)
-- **following_text_end** - text after max(sel.a, sel.b)
-- **preceding_text_a** - text before a
-- **preceding_text_b** - text before b
-- **preceding_text_begin** - text before min(sel.a, sel.b)
-- **preceding_text_end** - text before max(sel.a, sel.b)
+- **following_text_a** - text to EOL after sel.a
+- **following_text_b** - text to EOL after sel.b
+- **following_text_begin** - text to EOL after min(sel.a, sel.b)
+- **following_text_end** - text to EOL after max(sel.a, sel.b)
+- **preceding_text_a** - text to BOL before a
+- **preceding_text_b** - text to BOL before b
+- **preceding_text_begin** - text to BOL before min(sel.a, sel.b)
+- **preceding_text_end** - text to BOL before max(sel.a, sel.b)
