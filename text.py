@@ -75,6 +75,16 @@ class Preceding128CharsBegin(Base):
 
     return self._check_sel('preceding_128_chars_begin', callback, *args)
 
+class Following128CharsEnd(Base):
+  def on_query_context(self, *args):
+    callback = lambda view, sel: \
+      view.substr(sublime.Region(
+        sel.begin(),
+        min(view.size(), sel.end() + 128)
+      ))
+
+    return self._check_sel('following_128_chars_end', callback, *args)
+
 # unused; probably will be handy in future;
 
 

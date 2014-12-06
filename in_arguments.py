@@ -8,7 +8,7 @@ try:
   from Statement import statement
 except ImportError:
   sublime.error_message("Dependency import failed; please read readme for " +
-   "SnippetManager plugin for installation instructions; to disable this " +
+   "Context plugin for installation instructions; to disable this " +
    "message remove this plugin")
 
 
