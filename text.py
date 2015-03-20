@@ -75,15 +75,26 @@ class Preceding128CharsBegin(Base):
 
     return self._check_sel('preceding_128_chars_begin', callback, *args)
 
+class Preceding512CharsBegin(Base):
+  def on_query_context(self, *args):
+    callback = lambda view, sel: \
+      view.substr(sublime.Region(max(0, sel.begin() - 512), sel.begin()))
+
+    return self._check_sel('preceding_512_chars_begin', callback, *args)
+
 class Following128CharsEnd(Base):
   def on_query_context(self, *args):
     callback = lambda view, sel: \
-      view.substr(sublime.Region(
-        sel.begin(),
-        min(view.size(), sel.end() + 128)
-      ))
+      view.substr(sublime.Region(sel.begin(), min(view.size(), sel.end() + 128)))
 
     return self._check_sel('following_128_chars_end', callback, *args)
+
+class Following512CharsEnd(Base):
+  def on_query_context(self, *args):
+    callback = lambda view, sel: \
+      view.substr(sublime.Region(sel.begin(), min(view.size(), sel.end() + 512)))
+
+    return self._check_sel('following_512_chars_end', callback, *args)
 
 # unused; probably will be handy in future;
 
