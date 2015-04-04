@@ -3,6 +3,13 @@ import sublime_plugin
 
 from Context.base import Base
 
+class Selection(Base):
+  def on_query_context(self, *args):
+    callback = lambda view, sel: view.substr(sel)
+    return self._check_sel('selection', callback, *args)
+
+  def _get_text(self, view, sel):
+    return view.substr(view.line(sel.b))
 
 class LineB(Base):
   def on_query_context(self, *args):
@@ -29,14 +36,14 @@ class FollowingTextB(Base):
 class FollowingTextBegin(Base):
   def on_query_context(self, *args):
     callback = lambda view, sel: \
-      view.substr(sublime.Region(sel.begin(), view.line(sel.b).b))
+      view.substr(sublime.Region(sel.begin(), view.line(sel.begin()).b))
 
     return self._check_sel('following_text_begin', callback, *args)
 
 class FollowingTextEnd(Base):
   def on_query_context(self, *args):
     callback = lambda view, sel: \
-      view.substr(sublime.Region(sel.end(), view.line(sel.b).b))
+      view.substr(sublime.Region(sel.end(), view.line(sel.end()).b))
 
     return self._check_sel('following_text_end', callback, *args)
 
@@ -57,14 +64,14 @@ class PrecedingTextB(Base):
 class PrecedingTextBegin(Base):
   def on_query_context(self, *args):
     callback = lambda view, sel: \
-      view.substr(sublime.Region(view.line(sel.b).a, sel.begin()))
+      view.substr(sublime.Region(view.line(sel.begin()).a, sel.begin()))
 
     return self._check_sel('preceding_text_begin', callback, *args)
 
 class PrecedingTextEnd(Base):
   def on_query_context(self, *args):
     callback = lambda view, sel: \
-      view.substr(sublime.Region(view.line(sel.b).a, sel.end()))
+      view.substr(sublime.Region(view.line(sel.end()).a, sel.end()))
 
     return self._check_sel('preceding_text_end', callback, *args)
 

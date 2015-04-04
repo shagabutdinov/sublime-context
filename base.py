@@ -1,8 +1,10 @@
 import sublime
 import sublime_plugin
 import re
+from Expression import expression
 
 class Base(sublime_plugin.EventListener):
+
   def _check_value(self, value, operator, operand):
     if operator == sublime.OP_EQUAL:
       return value == operand
@@ -18,7 +20,6 @@ class Base(sublime_plugin.EventListener):
       return re.search(operand, value) == None
     else:
       raise Exception('Unsupported operator: ' + str(operator))
-
 
   def _check_sel(self, name, callback, view, key, operator, operand, match_all):
     if key != name:
