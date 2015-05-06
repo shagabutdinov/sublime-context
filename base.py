@@ -11,13 +11,13 @@ class Base(sublime_plugin.EventListener):
     elif operator == sublime.OP_NOT_EQUAL:
       return value != operand
     elif operator == sublime.OP_REGEX_MATCH:
-      return re.match(operand, value) != None
+      return value != None and re.match(operand, value) != None
     elif operator == sublime.OP_NOT_REGEX_MATCH:
-      return re.match(operand, value) == None
+      return value != None and re.match(operand, value) == None
     elif operator == sublime.OP_REGEX_CONTAINS:
-      return re.search(operand, value) != None
+      return value != None and re.search(operand, value) != None
     elif operator == sublime.OP_NOT_REGEX_CONTAINS:
-      return re.search(operand, value) == None
+      return value != None and re.search(operand, value) == None
     else:
       raise Exception('Unsupported operator: ' + str(operator))
 
