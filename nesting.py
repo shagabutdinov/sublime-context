@@ -8,7 +8,6 @@ class Nesting(Base):
 
   def _get_value(self, view, sel):
     begin = expression.get_nesting_type(view, sel.begin(), 2048)
-
     if sel.begin() != sel.end():
       if begin != expression.get_nesting_type(view, sel.end(), 2048):
         return None

@@ -3,7 +3,7 @@ import sublime_plugin
 
 from Context.base import Base
 from Expression import expression
-from IndentationNavigation import utility
+from IndentationNavigation import indentation_navigation
 import re
 
 class InClassDefinition(Base):
@@ -12,20 +12,20 @@ class InClassDefinition(Base):
         view, *args)
 
   def _check_point(self, view, sel):
+    nesting = expression.get_nesting(view, sel.a, None, {}, r'[\(]')
+    if nesting != None:
+      return False
+
     point = sel.a
 
-    try:
-      point = utility.get_point(view, point, alignment = "left", backward = True,
-        before = 1, type = "lesser")
-    except:
-      return None
-
+    point = indentation_navigation.get_point(view, point, alignment = "left",
+      backward = True, before = 1, type = "lesser")
     if point == 0:
       text = view.substr(view.line(0))
     else:
       text = view.substr(sublime.Region(max(point - 512, 0), point))
 
-    expr = r'(\n|^)\s*(class|module|interface).*\s*$'
+    expr = r'(\n|^)\s*(class|module|interface|trait).*(\s*\{\s*)?$'
     return re.search(expr, text, re.IGNORECASE) != None
 
 class ClassName(Base):
