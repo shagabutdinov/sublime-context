@@ -60,26 +60,43 @@ class Context():
     return result, files
 
   def check(self, view, context):
+    result = False
+    operator = "and"
     for item in context:
-      found = False
-      key, operator, operand, match_all = self._prepare_context_item(item)
-      for listener in self.listeners:
-        query_result = listener.on_query_context(view, key, operator, operand,
-          match_all)
+      if isinstance(item, str):
+        operator = item
+        continue
 
-        if query_result == None:
-          continue
+      if isinstance(item, list):
+        result = self._merge_result(operator, result, self.check(view, item))
+        continue
 
-        if not query_result:
-          return False
+      check = self._check_item(view, item)
+      result = self._merge_result(operator, result, check)
 
-        found = True
-        break
+    return result
 
-      if not found:
-        raise Exception('Context "' + key + '" not found')
+  def _check_item(self, view, item):
+    found = False
+    key, operator, operand, match_all = self._prepare_context_item(item)
+    for listener in self.listeners:
+      query_result = listener.on_query_context(view, key, operator, operand,
+        match_all)
 
-    return True
+      if query_result == None:
+        continue
+
+      return query_result
+
+    raise Exception('Context "' + key + '" not found')
+
+  def _merge_result(self, operator, result, current):
+    if operator == "and":
+      return result and current
+    elif operator == "or":
+      return result or current
+
+    raise Exception('Operator should be "or" or "and"; given: ' + operator)
 
   def _prepare_context_item(self, item):
     key = item['key']
