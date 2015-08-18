@@ -60,8 +60,7 @@ class Context():
     return result, files
 
   def check(self, view, context):
-    result = False
-    operator = "and"
+    result, operator = True, "and"
     for item in context:
       if isinstance(item, str):
         operator = item

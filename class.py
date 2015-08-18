@@ -25,7 +25,7 @@ class InClassDefinition(Base):
     else:
       text = view.substr(sublime.Region(max(point - 512, 0), point))
 
-    expr = r'(\n|^)\s*(class|module|interface|trait).*(\s*\{\s*)?$'
+    expr = r'(\n|^)\s*(struct|class|module|interface|trait).*(\s*\{\s*)?$'
     return re.search(expr, text, re.IGNORECASE) != None
 
 class ClassName(Base):
