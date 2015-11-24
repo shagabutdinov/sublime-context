@@ -108,3 +108,11 @@ class Following512CharsEnd(Base):
 
   def _callback(self, view, sel):
     return view.substr(sublime.Region(sel.begin(), min(view.size(), sel.end() + 512)))
+
+class Begin512Chars(Base):
+
+  def on_query_context(self, *args):
+    return self._check_sel('begin_512_chars', self._callback, *args)
+
+  def _callback(self, view, sel):
+    return view.substr(sublime.Region(0, min(view.size(), 512)))
