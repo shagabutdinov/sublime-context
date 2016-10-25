@@ -104,3 +104,7 @@ None
 - **preceding_text_b** - text to BOL before b
 - **preceding_text_begin** - text to BOL before min(sel.a, sel.b)
 - **preceding_text_end** - text to BOL before max(sel.a, sel.b)
+
+### Conflicts
+
+  * Arctic Type Script - it defines same context values which work differently
